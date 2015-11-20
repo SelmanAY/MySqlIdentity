@@ -1,3 +1,6 @@
+This is a forked repo. the only difference is identities of entities in database are all integers. 
+Thanks [Radenko Zec](https://github.com/radenkozec) for the original implementation.
+
 # MySql.AspNet.Identity #
 An ASP.NET Identity 2.1 provider for MySql
 
