@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `aspnetroles` (
 
 CREATE TABLE IF NOT EXISTS `aspnetuserclaims` (
   `Id` int NOT NULL AUTO_INCREMENT,
-  `UserId` varchar(128) NOT NULL,
+  `UserId` int NOT NULL,
   `ClaimType` longtext,
   `ClaimValue` longtext,
   PRIMARY KEY (`Id`),
@@ -97,4 +97,3 @@ ALTER TABLE `aspnetuserlogins`
 ALTER TABLE `aspnetuserroles`
   ADD CONSTRAINT `ApplicationUser_Roles` FOREIGN KEY (`UserId`) REFERENCES `aspnetusers` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `IdentityRole_Users` FOREIGN KEY (`RoleId`) REFERENCES `aspnetroles` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
