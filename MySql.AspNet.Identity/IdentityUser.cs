@@ -4,9 +4,9 @@ using Microsoft.AspNet.Identity;
 
 namespace MySql.AspNet.Identity
 {
-    public class IdentityUser : IUser
+    public class IdentityUser : IUser<int>
     {
-        public virtual string Id { get; set; }
+        public virtual int Id { get; set; }
         public virtual string UserName { get; set; }
         public virtual string PasswordHash { get; set; }
         public virtual string SecurityStamp { get; set; }
@@ -27,7 +27,7 @@ namespace MySql.AspNet.Identity
             this.Claims = new List<IdentityUserClaim>();
             this.Roles = new List<string>();
             this.Logins = new List<UserLoginInfo>();
-            this.Id = Guid.NewGuid().ToString();
+            // this.Id = Guid.NewGuid().ToString();
             LockoutEnabled = true;
         }
 
@@ -40,7 +40,7 @@ namespace MySql.AspNet.Identity
 
     public sealed class IdentityUserLogin
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string UserId { get; set; }
         public string Provider { get; set; }
         public string ProviderKey { get; set; }

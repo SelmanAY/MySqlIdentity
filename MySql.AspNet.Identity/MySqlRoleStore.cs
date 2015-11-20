@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MySql.AspNet.Identity
 {
-    public class MySqlRoleStore<TRole> : IQueryableRoleStore<TRole>
+    public class MySqlRoleStore<TRole> : IQueryableRoleStore<TRole, int>
         where TRole : IdentityRole
     {
         private readonly string _connectionString;
@@ -58,7 +58,7 @@ namespace MySql.AspNet.Identity
             return Task.FromResult<Object>(null);
         }
 
-        public Task<TRole> FindByIdAsync(string roleId)
+        public Task<TRole> FindByIdAsync(int roleId)
         {
             var result = _roleRepository.GetRoleById(roleId) as TRole;
 

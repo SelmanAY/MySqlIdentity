@@ -66,7 +66,7 @@ namespace MySql.AspNet.Identity.Repositories
                 while (reader.Read())
                 {
                     var user = (TUser)Activator.CreateInstance(typeof(TUser));
-                    user.Id = reader[0].ToString();
+                    user.Id = (int)reader[0];
                     user.Email = reader[1].ToString();
                     user.EmailConfirmed = (bool)reader[2];
                     user.PasswordHash = reader[3].ToString();
@@ -86,7 +86,7 @@ namespace MySql.AspNet.Identity.Repositories
             return users.AsQueryable<TUser>();
         }
         
-        public TUser GetById(string userId)
+        public TUser GetById(int userId)
         {
             var user = (TUser)Activator.CreateInstance(typeof(TUser));
             using (var conn = new MySqlConnection(_connectionString))
@@ -102,7 +102,7 @@ namespace MySql.AspNet.Identity.Repositories
                 LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName FROM aspnetusers WHERE Id=@Id", parameters);
                 while (reader.Read())
                 {
-                    user.Id = reader[0].ToString();
+                    user.Id = (int)reader[0];
                     user.Email = reader[1].ToString();
                     user.EmailConfirmed = (bool)reader[2];
                     user.PasswordHash = reader[3].ToString();
@@ -136,7 +136,7 @@ namespace MySql.AspNet.Identity.Repositories
                 LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName FROM aspnetusers WHERE UserName=@UserName", parameters);
                 while (reader.Read())
                 {
-                    user.Id = reader[0].ToString();
+                    user.Id = (int)reader[0];
                     user.Email = reader[1].ToString();
                     user.EmailConfirmed = (bool)reader[2];
                     user.PasswordHash = reader[3].ToString();
@@ -170,7 +170,7 @@ namespace MySql.AspNet.Identity.Repositories
                 LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName FROM aspnetusers WHERE Email=@Email", parameters);
                 while (reader.Read())
                 {
-                    user.Id = reader[0].ToString();
+                    user.Id = (int) reader[0];
                     user.Email = reader[1].ToString();
                     user.EmailConfirmed = (bool)reader[2];
                     user.PasswordHash = reader[3].ToString();

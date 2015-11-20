@@ -42,9 +42,9 @@ namespace MySql.AspNet.Identity.Repositories
             }
         }
 
-        public string GetByUserLoginInfo(UserLoginInfo login)
+        public int GetByUserLoginInfo(UserLoginInfo login)
         {
-            string userId;
+            int userId;
             using (var conn = new MySqlConnection(_connectionString))
             {
                 var parameters = new Dictionary<string, object>
@@ -55,13 +55,13 @@ namespace MySql.AspNet.Identity.Repositories
                 var userIdObject = MySqlHelper.ExecuteScalar(conn, CommandType.Text,
                     @"SELECT UserId FROM aspnetuserlogins WHERE LoginProvider = @LoginProvider AND ProviderKey = @ProviderKey", parameters);
                 userId = userIdObject == null
-                    ? null
-                    : userIdObject.ToString();
+                    ? 0
+                    : (int) userIdObject;
             }
             return userId;
         }
 
-        public List<UserLoginInfo> PopulateLogins(string userId)
+        public List<UserLoginInfo> PopulateLogins(int userId)
         {
             var listLogins = new List<UserLoginInfo>();
             using (var conn = new MySqlConnection(_connectionString))

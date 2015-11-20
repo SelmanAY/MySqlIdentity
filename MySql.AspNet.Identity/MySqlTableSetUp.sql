@@ -5,7 +5,7 @@
 --
 
 CREATE TABLE IF NOT EXISTS `aspnetroles` (
-  `Id` varchar(128) NOT NULL,
+  `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(256) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `aspnetroles` (
 --
 
 CREATE TABLE IF NOT EXISTS `aspnetuserclaims` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id` int NOT NULL AUTO_INCREMENT,
   `UserId` varchar(128) NOT NULL,
   `ClaimType` longtext,
   `ClaimValue` longtext,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `aspnetuserclaims` (
 CREATE TABLE IF NOT EXISTS `aspnetuserlogins` (
   `LoginProvider` varchar(128) NOT NULL,
   `ProviderKey` varchar(128) NOT NULL,
-  `UserId` varchar(128) NOT NULL,
+  `UserId` int NOT NULL,
   PRIMARY KEY (`LoginProvider`,`ProviderKey`,`UserId`),
   KEY `ApplicationUser_Logins` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `aspnetuserlogins` (
 --
 
 CREATE TABLE IF NOT EXISTS `aspnetuserroles` (
-  `UserId` varchar(128) NOT NULL,
-  `RoleId` varchar(128) NOT NULL,
+  `UserId` int NOT NULL,
+  `RoleId` int NOT NULL,
   PRIMARY KEY (`UserId`,`RoleId`),
   KEY `IdentityRole_Users` (`RoleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `aspnetuserroles` (
 --
 
 CREATE TABLE IF NOT EXISTS `aspnetusers` (
-  `Id` varchar(128) NOT NULL,
+  `Id` int NOT NULL AUTO_INCREMENT,
   `Email` varchar(256) DEFAULT NULL,
   `EmailConfirmed` tinyint(1) NOT NULL,
   `PasswordHash` longtext,

@@ -44,7 +44,7 @@ namespace MySql.AspNet.Identity.Repositories
             }
         }
 
-        public List<IdentityUserClaim> PopulateClaims(string userId)
+        public List<IdentityUserClaim> PopulateClaims(int userId)
         {
             var claims = new List<IdentityUserClaim>();
 

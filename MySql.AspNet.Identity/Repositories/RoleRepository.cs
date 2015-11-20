@@ -26,7 +26,7 @@ namespace MySql.AspNet.Identity.Repositories
                     var role = (TRole)Activator.CreateInstance(typeof(TRole));
 
 
-                    role.Id = reader[0].ToString();
+                    role.Id = (int)reader[0];
                     role.Name = reader[1].ToString();
                 
 
@@ -47,11 +47,11 @@ namespace MySql.AspNet.Identity.Repositories
                     {"@id", role.Id}
                 };
 
-                MySqlHelper.ExecuteNonQuery(conn, @"INSERT INTO aspnetroles (Id, Name) VALUES (@id,@name)", parameters);
+                MySqlHelper.ExecuteNonQuery(conn, @"INSERT INTO aspnetroles (Name) VALUES (@name)", parameters);
             }
         }
 
-        public void Delete(string roleId)
+        public void Delete(int roleId)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
@@ -64,7 +64,7 @@ namespace MySql.AspNet.Identity.Repositories
             }
         }
 
-        public IdentityRole GetRoleById(string roleId)
+        public IdentityRole GetRoleById(int roleId)
         {
             var roleName = GetRoleName(roleId);
             IdentityRole role = null;
@@ -78,7 +78,7 @@ namespace MySql.AspNet.Identity.Repositories
 
         }
 
-        private string GetRoleName(string roleId)
+        private string GetRoleName(int roleId)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
@@ -101,7 +101,7 @@ namespace MySql.AspNet.Identity.Repositories
             var roleId = GetRoleId(roleName);
             IdentityRole role = null;
 
-            if (roleId != null)
+            if (roleId != 0)
             {
                 role = new IdentityRole(roleName, roleId);
             }
@@ -109,7 +109,7 @@ namespace MySql.AspNet.Identity.Repositories
             return role;
         }
 
-        private string GetRoleId(string roleName)
+        private int GetRoleId(string roleName)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
@@ -121,11 +121,11 @@ namespace MySql.AspNet.Identity.Repositories
                 var result = MySqlHelper.ExecuteScalar(conn, CommandType.Text, @"SELECT Id FROM aspnetroles WHERE Name = @name", parameters);
                 if (result != null)
                 {
-                    return result.ToString();
+                    return ((int)result);
                 }
             }
 
-            return null;
+            return 0;
         }
 
         public void Update(IdentityRole role)

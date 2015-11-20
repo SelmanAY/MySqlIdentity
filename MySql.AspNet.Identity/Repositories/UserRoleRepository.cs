@@ -75,7 +75,7 @@ namespace MySql.AspNet.Identity.Repositories
             }
         }
 
-        public List<String> PopulateRoles(string userId)
+        public List<String> PopulateRoles(int userId)
         {
             var roleIds = new List<string>();
             var listRoles = new List<string>();

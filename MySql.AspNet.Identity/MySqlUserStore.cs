@@ -10,17 +10,17 @@ using MySql.AspNet.Identity.Repositories;
 namespace MySql.AspNet.Identity
 {
     public class MySqlUserStore<TUser> :
-        IUserStore<TUser>,
-        IUserLoginStore<TUser>,
-        IUserClaimStore<TUser>,
-        IUserRoleStore<TUser>,
-        IUserPasswordStore<TUser>,
-        IUserSecurityStampStore<TUser>,
-        IUserEmailStore<TUser>,
-        IUserLockoutStore<TUser, string>,
-        IUserTwoFactorStore<TUser, string>,
-        IUserPhoneNumberStore<TUser>,
-        IQueryableUserStore<TUser>
+        IUserStore<TUser, int>,
+        IUserLoginStore<TUser, int>,
+        IUserClaimStore<TUser, int>,
+        IUserRoleStore<TUser, int>,
+        IUserPasswordStore<TUser, int>,
+        IUserSecurityStampStore<TUser, int>,
+        IUserEmailStore<TUser, int>,
+        IUserLockoutStore<TUser, int>,
+        IUserTwoFactorStore<TUser, int>,
+        IUserPhoneNumberStore<TUser, int>,
+        IQueryableUserStore<TUser, int>
     where TUser : IdentityUser
     {
         private readonly string _connectionString;
@@ -55,8 +55,8 @@ namespace MySql.AspNet.Identity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-            if (string.IsNullOrEmpty(user.Id))
-                throw new InvalidOperationException("user.Id property must be specified before calling CreateAsync");
+            //if (string.IsNullOrEmpty(user.Id))
+            //    throw new InvalidOperationException("user.Id property must be specified before calling CreateAsync");
 
             _userRepository.Insert(user);
             return Task.FromResult(true);
@@ -72,7 +72,7 @@ namespace MySql.AspNet.Identity
             return Task.FromResult(true);
         }
 
-        public Task<TUser> FindByIdAsync(string userId)
+        public Task<TUser> FindByIdAsync(int userId)
         {
             var user =_userRepository.GetById(userId);
             if (user != null)
@@ -109,10 +109,6 @@ namespace MySql.AspNet.Identity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-
-            if (string.IsNullOrEmpty(user.Id))
-                throw new InvalidOperationException("user.Id property must be specified before calling CreateAsync");
-
 
            _userRepository.Update(user);
 
@@ -184,7 +180,7 @@ namespace MySql.AspNet.Identity
 
             var userId = _userLoginRepository.GetByUserLoginInfo(login);
 
-            if (!string.IsNullOrEmpty(userId))
+            if (userId != 0)
             {
                 return FindByIdAsync(userId);
             }

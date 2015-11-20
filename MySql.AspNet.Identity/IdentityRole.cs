@@ -3,11 +3,11 @@ using Microsoft.AspNet.Identity;
 
 namespace MySql.AspNet.Identity
 {
-    public class IdentityRole : IRole
+    public class IdentityRole : IRole<int>
     {
         public IdentityRole()
         {
-            Id = Guid.NewGuid().ToString();
+            // Id = Guid.NewGuid().ToString();
         }
 
         public IdentityRole(string name)
@@ -16,13 +16,13 @@ namespace MySql.AspNet.Identity
             Name = name;
         }
 
-        public IdentityRole(string name, string id)
+        public IdentityRole(string name, int id)
         {
             Name = name;
             Id = id;
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
     }
